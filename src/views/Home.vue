@@ -7,7 +7,7 @@
             <v-avatar size="100" color="white">
               <img src="@/assets/profile.jpg">
             </v-avatar>
-            <h3>JOSHUA KIMBAREEBA</h3>
+            <h3>MAWIRA BRIAN</h3>
             <P>Last logged in 2 days ago</P>
           </div>
         </div>

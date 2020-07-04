@@ -37,7 +37,7 @@
                                 <p>{{ hs.note2 }}</p>
                                 <h5>Next visit</h5>
                                 <div class="d-flex">
-                                    <v-chip dark>{{ hs.nextDate }}</v-chip>
+                                    <v-chip dark style="width: 6rem;">{{ hs.nextDate }}</v-chip>
                                     <v-btn text color="red" class="btn ml-3">Re-schedule</v-btn>
                                 </div>
                             </div>

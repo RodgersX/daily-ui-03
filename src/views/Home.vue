@@ -2,6 +2,10 @@
   <div class="home">
     <div class="card-main">
       <div class="card-item">
+        <div class="px-2 pt-2 top-nav red d-flex justify-space-between">
+          <v-btn icon dark><i class="bx bx-arrow-back bx-sm"></i></v-btn>
+          <v-btn icon dark><i class="bx bx-x bx-sm"></i></v-btn>
+        </div>
         <div class="image-div d-flex justify-center align-center red">
           <div class="text-center white--text">
             <v-avatar size="100" color="white">
@@ -68,7 +72,7 @@ export default {
 <style scoped>
 
 .image-div {
-  height: 300px;
+  height: 250px;
 }
 
 .tab-title:hover {

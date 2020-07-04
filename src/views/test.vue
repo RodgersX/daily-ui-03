@@ -1,45 +1,70 @@
 <template>
-    <div class="test">
-        <div id="accordion">
-            <div class="card">
-                <div class="card-header" data-toggle="collapse" data-target="#collapseOne" aria-controls="collapseOne" id="headingOne">
-                    <h5 class="mb-0">
-                        Collapsible Group Item #1
-                    </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="card-header" id="headingTwo" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                    <h5 class="mb-0">
-                        Collapsible Group Item #2
-                    </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                    <div class="card-body">
-                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+  <div class="text-center">
+    <v-bottom-sheet v-model="sheet">
+      <template class=" d-flex justify-center align-center" v-slot:activator="{ on, menu }">
+        <ul style="list-style: none;">
+            <li class="bottom-nav__item">
+                <v-btn
+                icon
+                color="red">
+                    <i class="bx bx-home bx-sm"></i>
+                </v-btn>
+            </li>
+            <li class="bottom-nav__item">
+                <v-btn icon color="red">
+                    <i class="bx bx-calendar-alt bx-sm"></i>
+                </v-btn>
+            </li>
+            <li class="bottom-nav__item">
+                <v-btn 
+                icon 
+                color="red" 
+                v-on="on"
+                v-bind="menu">
+                    <i class="bx bx-user bx-sm"></i>
+                </v-btn>
+            </li>
+            <li class="bottom-nav__item">
+                <v-btn icon color="red">
+                    <i class="bx bx-cog bx-sm"></i>
+                </v-btn>
+            </li>
+        </ul>
+      </template>
+      <v-list>
+        <v-list-item
+          v-for="tile in tiles"
+          :key="tile.title"
+          @click="sheet = false"
+        >
+          <v-list-item-avatar>
+            <v-avatar size="32px" tile>
+              <i :class='tile.img' class="grey--text"></i>
+            </v-avatar>
+          </v-list-item-avatar>
+          <v-list-item-title>{{ tile.title }}</v-list-item-title>
+        </v-list-item>
+      </v-list>
+    </v-bottom-sheet>
+  </div>
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-
-        }
-    }
-}
+  export default {
+    data: () => ({
+      sheet: false,
+      tiles: [
+        {img: 'bx bx-list-ul bx-sm', title: 'Medical History'},
+        { img: 'bx bxs-user-detail bx-sm', title: 'Personal Information'},
+        {img: 'bx bxs-calendar bx-sm', title: 'Appointments'}
+      ]
+    }),
+  }
 </script>
 
 <style scoped>
-
+.bottom-nav__item {
+    display: inline-block;
+    margin: 0 1.5rem;
+}
 </style>

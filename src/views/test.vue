@@ -1,70 +1,97 @@
 <template>
-  <div class="text-center">
-    <v-bottom-sheet v-model="sheet">
-      <template class=" d-flex justify-center align-center" v-slot:activator="{ on, menu }">
-        <ul style="list-style: none;">
-            <li class="bottom-nav__item">
-                <v-btn
-                icon
-                color="red">
-                    <i class="bx bx-home bx-sm"></i>
-                </v-btn>
-            </li>
-            <li class="bottom-nav__item">
-                <v-btn icon color="red">
-                    <i class="bx bx-calendar-alt bx-sm"></i>
-                </v-btn>
-            </li>
-            <li class="bottom-nav__item">
-                <v-btn 
-                icon 
-                color="red" 
-                v-on="on"
-                v-bind="menu">
-                    <i class="bx bx-user bx-sm"></i>
-                </v-btn>
-            </li>
-            <li class="bottom-nav__item">
-                <v-btn icon color="red">
-                    <i class="bx bx-cog bx-sm"></i>
-                </v-btn>
-            </li>
-        </ul>
-      </template>
-      <v-list>
-        <v-list-item
-          v-for="tile in tiles"
-          :key="tile.title"
-          @click="sheet = false"
-        >
-          <v-list-item-avatar>
-            <v-avatar size="32px" tile>
-              <i :class='tile.img' class="grey--text"></i>
-            </v-avatar>
-          </v-list-item-avatar>
-          <v-list-item-title>{{ tile.title }}</v-list-item-title>
-        </v-list-item>
-      </v-list>
-    </v-bottom-sheet>
+  <div class="test">
+    <!-- tab links -->
+    <div class="tab">
+      <button class="tablinks" @click="openCity(event, 'London')" id="defaultOpen">London</button>
+      <button class="tablinks" @click="openCity(event, 'Paris')">Paris</button>
+      <button class="tablinks" @click="openCity(event, 'Tokyo')">Tokyo</button>
+    </div>
+
+    <!-- tab content -->
+    <div id="London" class="tabcontent">
+      <h3>London</h3>
+      <p>London is the capital city of England</p>
+    </div>
+    <div id="Paris" class="tabcontent">
+      <h3>Paris</h3>
+      <p>Paris is the capital city of France</p>
+    </div>
+    <div id="Tokyo" class="tabcontent">
+      <h3>Tokyo</h3>
+      <p>Tokyo is the capital city of Japan</p>
+    </div>
   </div>
 </template>
 
 <script>
   export default {
-    data: () => ({
-      sheet: false,
-      tiles: [
-        {img: 'bx bx-list-ul bx-sm', title: 'Medical History'},
-        { img: 'bx bxs-user-detail bx-sm', title: 'Personal Information'},
-        {img: 'bx bxs-calendar bx-sm', title: 'Appointments'}
-      ]
-    }),
+    mounted() {
+      document.getElementById('defaultOpen').click()
+    },
+
+    data() {
+      return {
+
+      }
+    },
+
+    methods: {
+      openCity(evt, cityName) {
+        var i, tabcontent, tablinks
+
+        tabcontent = document.getElementsByClassName('tabcontent')
+        for(i=0; i<tabcontent.length; i++) {
+          tabcontent[i].style.display = 'none'
+        }
+
+        tablinks = document.getElementsByClassName('tablinks')
+        for(i=0; i<tablinks[i].length; i++) {
+          tablinks[i].className = tablinks[i].className.replace('active', '')
+        }
+
+        document.getElementById(cityName).style.display = 'block'
+        evt.currentTarget.className += 'active'
+      }
+    }
   }
 </script>
 
 <style scoped>
-.bottom-nav__item {
-    display: inline-block;
-    margin: 0 1.5rem;
+
+.tab {
+  overflow: hidden;
+  border:  1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.tab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+}
+
+@keyframes fadeEffect {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.tabcontent {
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #ccc;
+  border-top: none;
+  animation: fadeEffect 2s;
 }
 </style>

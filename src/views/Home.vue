@@ -16,25 +16,23 @@
           </div>
         </div>
 
-        <!-- tabular data -->
+        <!-- tab data -->
         <div class="tabs">
-          <v-tabs text fixed-tabs color="black">
-            <v-tab class="tab-title" href="#tab-1">Medical H.</v-tab>
-            <v-tab class="tab-title" href="#tab-2">Personal Info.</v-tab>
-            <v-tab class="tab-title" href="#tab-3">Appointments</v-tab>
+          <div class="tab d-flex justify-space-between px-4">
+            <button class="tablinks" @click="openTab(event, 'medical')" id="defaultOpen">Medical H.</button>
+            <button class="tablinks" @click="openTab(event, 'personal')">Personal Info.</button>
+            <button class="tablinks" @click="openTab(event, 'appointments')">Appointments</button>
+          </div>
 
-            <!-- tabs items -->
-            <v-tab-item id="tab-1">
-              <medical-h />
-            </v-tab-item>
-            <v-tab-item id="tab-2">
-              <personal-info />
-            </v-tab-item>
-            <v-tab-item id="tab-3">
-              <appointments />
-            </v-tab-item>
-          </v-tabs>
-            
+          <div id="medical" class="tabcontent">
+            <medical-h />
+          </div>
+          <div id="personal" class="tabcontent">
+            <personal-info />
+          </div>
+          <div id="appointments" class="tabcontent">
+            <appointments />
+          </div>
         </div>
       </div>
     </div>
@@ -75,9 +73,9 @@
             <v-list>
               <v-list-item
               class="v-list-item"
-              v-for="tile in tiles"
-              :key="tile.title"
-              :href="'#tab-' + 3">
+              v-for="(tile, i) in tiles"
+              :key="i"
+              @click="openTab(event, tile.name)">
                 <v-list-item-avatar>
                   <v-avatar size="32px" tile>
                     <i :class='tile.img' class="grey--text"></i>
@@ -105,16 +103,39 @@ export default {
     appointments
   },
 
+  mounted() {
+    document.getElementById('defaultOpen').click()
+  },
+
   data() {
     return {
       tab: null,
       search: false,
       sheet: false,
       tiles: [
-        {img: 'bx bx-list-ul bx-sm', title: 'Medical History'},
-        { img: 'bx bxs-user-detail bx-sm', title: 'Personal Information'},
-        {img: 'bx bxs-calendar bx-sm', title: 'Appointments'}
+        {img: 'bx bx-list-ul bx-sm', title: 'Medical History', name: 'medical'},
+        { img: 'bx bxs-user-detail bx-sm', title: 'Personal Information', name: 'personal'},
+        {img: 'bx bxs-calendar bx-sm', title: 'Appointments', name: 'appointments'}
       ]
+    }
+  },
+
+  methods: {
+    openTab(evt, tabName) {
+      // eslint-disable-next-line no-unused-vars
+      var i, tabcontent, tablinks
+
+      tabcontent = document.getElementsByClassName('tabcontent')
+      for(i=0; i<tabcontent.length; i++) {
+        tabcontent[i].style.display = 'none'
+      }
+      tablinks = document.getElementsByClassName('tablinks')
+      for(i=0; i<tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace('active', '')
+      }
+
+      document.getElementById(tabName).style.display = 'block'
+      evt.currentTarget.className += 'active'
     }
   }
 }
@@ -143,5 +164,36 @@ export default {
 .bottom-nav__item {
     display: inline-block;
     margin: 0 1.5rem;
+}
+
+.tab {
+  overflow: hidden;
+  border:  1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+.tab button {
+  background-color: inherit;
+  width: 100%;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+}
+
+.tab button:hover {
+  background-color: #ddd;
+}
+
+.tab button.active {
+  background-color: #ccc;
+  border-bottom: 1px solid red;
+}
+
+.tabcontent {
+  display: none;
+  border-top: none;
 }
 </style>
